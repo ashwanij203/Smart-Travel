@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Travel Packet Assistant</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #2a4a7f;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #63c6ff;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            padding: 5px 10px;
+        }
+        
+        .nav-links a:hover {
+            color: #63c6ff;
+        }
+        
+        .active {
+            border-bottom: 2px solid #63c6ff;
+        }
+        
+        /* Main Content Styles */
+        main {
+            padding: 40px 0;
+            min-height: calc(100vh - 160px);
+        }
+        
+        /* Home Page Styles */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to right, #2a4a7f, #4a8fbf);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #63c6ff;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #4aa3d8;
+        }
+        
+        .travel-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .travel-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .travel-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .travel-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            color: #2a4a7f;
+        }
+        
+        /* Chat Interface Styles */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 70vh;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .chat-intro {
+            margin: 15px 0;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+        
+        .user-message {
+            background-color: #e6f2ff;
+            margin-left: auto;
+            color: #333;
+        }
+        
+        .bot-message {
+            background-color: #f0f0f0;
+            margin-right: auto;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .chat-input button {
+            background-color: #2a4a7f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background-color: #1c3660;
+        }
+        
+        /* About Page Styles */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-content h2 {
+            color: #2a4a7f;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .social-links {
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #2a4a7f;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #63c6ff;
+        }
+        
+        .travel-info {
+            margin-top: 50px;
+        }
+        
+        .travel-info h2 {
+            color: #2a4a7f;
+            margin-bottom: 20px;
+        }
+        
+        .travel-info ul {
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+        
+        .travel-info li {
+            margin-bottom: 10px;
+        }
+        
+        /* Signing Page Styles */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-container h2 {
+            color: #2a4a7f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-btn {
+            background-color: #2a4a7f;
+            color: white;
+            border: none;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .form-btn:hover {
+            background-color: #1c3660;
+        }
+        
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .switch-form a {
+            color: #2a4a7f;
+            text-decoration: none;
+        }
+        
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #2a4a7f;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Smart<span>Travel</span></a>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" onclick="showHome()">Home</a></li>
+                    <li><a href="#" onclick="showChat()">Chat</a></li>
+                    <li><a href="#" onclick="showAbout()">About</a></li>
+                    <li><a href="#" onclick="showSignIn()">Sign In</a></li>
+                    <li><a href="#" onclick="showSignUp()">Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Home Page Content -->
+            <div id="home-page">
+                <div class="hero">
+                    <h1>Your Smart Travel Companion</h1>
+                    <p>Discover amazing destinations, get personalized travel recommendations, and plan your perfect trip with our AI-powered travel assistant.</p>
+                    <a href="#" class="btn" onclick="showChat()">Chat with Assistant</a>
+                </div>
+                
+                <h2>Explore Travel Types</h2>
+                <div class="travel-types">
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('{{ url_for('static', filename='images/images.jpg') }}');"></div>
+                        <div class="card-content">
+                            <h3>Adventure Travel</h3>
+                            <p>Thrilling experiences for the bold traveler. Hiking, rafting, climbing and more await you in the world's most exciting destinations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('{{ url_for('static', filename='images/getaway.jpg') }}');"></div>
+                        <div class="card-content">
+                            <h3>Luxury Getaways</h3>
+                            <p>Indulge in the finest accommodations, dining, and experiences. Our luxury travel options cater to those seeking the very best.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('{{ url_for('static', filename='images/cultural.jpg') }}');"></div>
+                        <div class="card-content">
+                            <h3>Cultural Exploration</h3>
+                            <p>Immerse yourself in local traditions, arts, and history. Experience the authentic essence of destinations around the world.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('{{ url_for('static', filename='images/beach.jpg') }}');"></div>
+                        <div class="card-content">
+                            <h3>Beach Vacations</h3>
+                            <p>Relax on pristine shores and enjoy the sun, sand, and sea. Perfect for those seeking relaxation and coastal beauty.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Interface -->
+            <div id="chat-page" style="display: none;">
+                <h2>Smart Travel Assistant</h2>
+                <p class="chat-intro">Ask me about destinations, travel tips, or for personalized recommendations!</p>
+                
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot-message">
+                            Hello! I'm your Smart Travel Assistant. How can I help you plan your next adventure?
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input">
+                        <input type="text" id="user-input" placeholder="Type your message here..." onkeypress="handleKeyPress(event)">
+                        <button onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About Page -->
+            <div id="about-page" style="display: none;">
+                <div class="about-section">
+                    <div class="about-img">
+                        <img src="{{ url_for('static', filename='images/team.jpg') }}" alt="travel_team" width="300">
+
+                    </div>
+                    
+                    <div class="about-content">
+                        <h2>About Smart Travel</h2>
+                        <p>Smart Travel was founded in 2023 with a mission to make travel planning easier, more personalized, and more enjoyable. Our AI-powered assistant helps travelers discover new destinations, find the best deals, and create itineraries that match their preferences.</p>
+                        
+                        <p>Our team consists of travel enthusiasts, AI experts, and customer experience specialists who work together to provide you with the best travel planning experience possible.</p>
+                        
+                        <h3>Follow Us</h3>
+                        <div class="social-links">
+                            <a href="#">Facebook</a>
+                            <a href="#">Twitter</a>
+                            <a href="#">Instagram</a>
+                            <a href="#">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="travel-info">
+                    <h2>Our Travel Expertise</h2>
+                    <p>We specialize in various types of travel experiences:</p>
+                    <ul>
+                        <li><strong>Adventure Travel:</strong> For thrill-seekers looking for adrenaline-pumping experiences.</li>
+                        <li><strong>Luxury Travel:</strong> For those who want the finest accommodations and experiences.</li>
+                        <li><strong>Budget Travel:</strong> For smart travelers who want to maximize their experiences while minimizing costs.</li>
+                        <li><strong>Family Travel:</strong> For creating memorable experiences with loved ones.</li>
+                        <li><strong>Solo Travel:</strong> For independent explorers seeking personal growth and freedom.</li>
+                        <li><strong>Eco-Tourism:</strong> For environmentally conscious travelers who want to minimize their impact.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sign In Page -->
+            <div id="signin-page" style="display: none;">
+                <div class="form-container">
+                    <h2>Sign In</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" required>
+                        </div>
+                        <button type="button" class="form-btn">Sign In</button>
+                    </form>
+                    <div class="switch-form">
+                        <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sign Up Page -->
+            <div id="signup-page" style="display: none;">
+                <div class="form-container">
+                    <h2>Create Account</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" required>
+                        </div>
+                        <button type="button" class="form-btn">Sign Up</button>
+                    </form>
+                    <div class="switch-form">
+                        <p>Already have an account? <a href="#" onclick="showSignIn()">Sign In</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Smart Travel Assistant. All rights reserved.</p>
+            <p>Designed with ❤️ for travelers around the world</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for page navigation and chat functionality -->
+    <script>
+        function showHome() {
+            showPage('home-page', 0);
+        }
+    
+        function showChat() {
+            showPage('chat-page', 1);
+        }
+    
+        function showAbout() {
+            showPage('about-page', 2);
+        }
+    
+        function showSignIn() {
+            showPage('signin-page', 3);
+        }
+    
+        function showSignUp() {
+            showPage('signup-page', 4);
+        }
+    
+        function showPage(pageId, navIndex) {
+            const pages = ['home-page', 'chat-page', 'about-page', 'signin-page', 'signup-page'];
+            pages.forEach(id => document.getElementById(id).style.display = (id === pageId) ? 'block' : 'none');
+            updateActiveNav(navIndex);
+        }
+    
+        function updateActiveNav(index) {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach((link, i) => link.classList.toggle('active', i === index));
+        }
+    
+        async function sendMessage() {
+    const userInput = document.getElementById('user-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    const message = userInput.value.trim();
+    if (message === '') return;
+
+    const userMessage = document.createElement('div');
+    userMessage.className = 'message user-message';
+    userMessage.textContent = message;
+    chatMessages.appendChild(userMessage);
+
+    const botMessage = document.createElement('div');
+    botMessage.className = 'message bot-message';
+    chatMessages.appendChild(botMessage);
+
+    try {
+        const response = await fetch("/get-response", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: message })
+        });
+
+        const data = await response.json();
+
+        // You can still do some formatting
+        const formattedReply = data.reply
+            .replace(/\n/g, '<br>')
+            .replace(/\* \*\*(.*?)\*\*/g, '<b>$1</b>')
+            .replace(/\* (.*?)\:/g, '<b>$1:</b>');
+
+        typeWriter(botMessage, formattedReply, 10);
+
+    } catch (error) {
+        botMessage.textContent = "Something went wrong 💥";
+        console.error("Fetch error:", error);
+    }
+
+    userInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+    
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') sendMessage();
+        }
+    
+        function typeWriter(element, text, speed) {
+            let i = 0;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = text;
+            const nodes = Array.from(tempDiv.childNodes);
+    
+            function typeNextNode(index) {
+                if (index >= nodes.length) return;
+                const node = nodes[index];
+    
+                if (node.nodeType === Node.TEXT_NODE) {
+                    let textContent = node.textContent;
+                    let charIndex = 0;
+    
+                    function typeChar() {
+                        if (charIndex < textContent.length) {
+                            element.innerHTML += textContent[charIndex++];
+                            setTimeout(typeChar, speed);
+                        } else {
+                            typeNextNode(index + 1);
+                        }
+                    }
+                    typeChar();
+                } else {
+                    element.appendChild(node.cloneNode(true));
+                    typeNextNode(index + 1);
+                }
+            }
+    
+            typeNextNode(0);
+        }
+    
+        window.onload = function () {
+            showHome();
+        };
+    </script>
+    
+    
+    
+</body>
+</html>
