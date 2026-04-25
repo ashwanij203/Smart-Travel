@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Travel Premium</title>
     <!-- Link to external stylesheet -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body data-theme="light">
     <!-- Airplane Transition Element -->
@@ -16,7 +16,7 @@
     <!-- Splash Screen Intro -->
     <div id="splash-screen">
         <div class="splash-content">
-            <img src="{{ url_for('static', filename='images/anime_guide.png') }}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'" alt="Anime Tour Guide" class="anime-guide">
+            <img src="/static/images/anime_guide.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'" alt="Anime Tour Guide" class="anime-guide">
             <h1 class="splash-text">Ready for an Unforgettable Journey?</h1>
             <button class="splash-btn" onclick="startTour()">Let's Explore!</button>
         </div>
