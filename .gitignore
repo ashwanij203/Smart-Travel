@@ -1,0 +1,9 @@
+.venv/
+venv/
+venv_win/
+flask_session/
+__pycache__/
+*.pyc
+install_log.txt
+install_log_utf8.txt
+.env

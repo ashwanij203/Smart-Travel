@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Travel Premium</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body data-theme="light">
+    <!-- Airplane Transition Element -->
+    <svg id="flying-plane" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 16V14L13 9V3.5C13 2.67 12.33 2 11.5 2C10.67 2 10 2.67 10 3.5V9L2 14V16L10 13.5V19L8 20.5V22L11.5 21L15 22V20.5L13 19V13.5L21 16Z"/>
+    </svg>
+
+    <!-- Splash Screen Intro -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <img src="{{ url_for('static', filename='images/anime_guide.png') }}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'" alt="Anime Tour Guide" class="anime-guide">
+            <h1 class="splash-text">Ready for an Unforgettable Journey?</h1>
+            <button class="splash-btn" onclick="startTour()">Let's Explore!</button>
+        </div>
+    </div>
+
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Smart<span>Travel</span></a>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" onclick="showHome()">Home</a></li>
+                    <li><a href="#" onclick="showChat()">Chat Assistant</a></li>
+                    <li><a href="#" onclick="showAbout()">About Us</a></li>
+                    <li><a href="#" onclick="showSignIn()">Sign In</a></li>
+                    <li><a href="#" onclick="showSignUp()">Sign Up</a></li>
+                </ul>
+                <div class="theme-switch-wrapper">
+                    <select id="theme-selector" class="theme-select" onchange="changeTheme()">
+                        <option value="light">🌅 Light Explorer</option>
+                        <option value="dark">🌙 Dark Midnight</option>
+                        <option value="ocean">🌊 Deep Ocean</option>
+                    </select>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Home Page Content -->
+            <div id="home-page">
+                <div class="hero">
+                    <div class="aurora one"></div>
+                    <div class="aurora two"></div>
+                    <div class="aurora three"></div>
+                    <h1>Your Smart Travel Companion</h1>
+                    <p>Discover breathtaking destinations, get personalized travel recommendations, and forge your perfect trip with our Advanced AI.</p>
+                    <button class="btn" onclick="showChat()">Launch Chat Command</button>
+                </div>
+                
+                <h2>Explore Epic Experiences</h2>
+                <div class="travel-types">
+                    <!-- Premium Categories -->
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=1772&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Adventure Travel</h3>
+                            <p>Thrilling experiences for the bold traveler. Hiking, rafting, and climbing await you in the world's most exciting destinations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89402bb1a0b?q=80&w=2070&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Luxury Getaways</h3>
+                            <p>Indulge in the finest accommodations, dining, and VIP experiences catering to those seeking the absolute very best.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('https://images.unsplash.com/photo-1518391846015-55a9cc003b25?q=80&w=2070&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Cultural Exploration</h3>
+                            <p>Immerse yourself in local traditions, ancient arts, and history. Find the authentic essence of destinations worldwide.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Beach Vacations</h3>
+                            <p>Relax on pristine shores and soak in the sun, sand, and sea. Specifically curated for optimal relaxation and coastal beauty.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('https://images.unsplash.com/photo-1551524164-687a55dd1126?q=80&w=1925&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Winter Skiing</h3>
+                            <p>Find the best alpine resorts globally. Enjoy fresh powder, breathtaking snow-capped mountains, and cozy chalet evenings.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2068&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Safari Tours</h3>
+                            <p>Get up close and personal with majestic wildlife. Experience raw nature and the golden savannas under an expert guide.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>City Breaks</h3>
+                            <p>Dive deep into vibrant metropolises. Enjoy world-class shopping, towering landmarks, and the electric pulse of nightlife.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="travel-card">
+                        <div class="travel-img" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Culinary Journeys</h3>
+                            <p>Travel through your tastebuds. Experience local delicacies, Michelin-star restaurants, and hidden street-food gems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Splilt-Screen Chat Interface -->
+            <div id="chat-page" style="display: none;">
+                <div class="chat-split-layout">
+                    <div class="chat-visuals">
+                        <div class="chat-visuals-text">
+                            <h2>Plan It Perfectly.</h2>
+                            <p>Interact with our intelligent AI to generate personalized itineraries, calculate budgets, and discover hidden gems globally.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <img src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png" alt="Bot Icon">
+                            <div class="chat-header-text">
+                                <h3>Smart Travel AI</h3>
+                                <p>Online & Ready</p>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message bot-message">
+                                Welcome aboard! I'm your Smart Travel Assistant. Where in the world would you like to explore next?
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input">
+                            <input type="text" id="user-input" placeholder="Enter destination or query..." onkeypress="handleKeyPress(event)">
+                            <button onclick="sendMessage()">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About Page -->
+            <div id="about-page" style="display: none;">
+                <div class="about-section">
+                    <div class="about-img">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop" alt="travel_team">
+                    </div>
+                    
+                    <div class="about-content">
+                        <h2>About Smart Travel</h2>
+                        <p>Smart Travel was founded with a mission to make travel planning easier, more personalized, and entirely automated. Our AI-powered assistant helps travelers discover new destinations, find the best deals, and create itineraries that match their preferences with zero friction.</p>
+                        
+                        <p>Our team consists of travel enthusiasts, AI engineers, and UI specialists who work together to provide you with the most premium travel planning experience available.</p>
+                        
+                        <h3>Follow The Journey</h3>
+                        <div class="social-links">
+                            <a href="#">Facebook</a>
+                            <a href="#">Twitter</a>
+                            <a href="#">Instagram</a>
+                            <a href="#">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sign In Page -->
+            <div id="signin-page" style="display: none;">
+                <div class="form-container">
+                    <h2>Welcome Back</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" required>
+                        </div>
+                        <button type="button" class="form-btn">Sign In</button>
+                    </form>
+                    <div class="switch-form">
+                        <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sign Up Page -->
+            <div id="signup-page" style="display: none;">
+                <div class="form-container">
+                    <h2>Join The Explorers</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" required>
+                        </div>
+                        <button type="button" class="form-btn">Sign Up</button>
+                    </form>
+                    <div class="switch-form">
+                        <p>Already have an account? <a href="#" onclick="showSignIn()">Sign In</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Smart Travel Premium. All rights reserved.</p>
+            <p>Designed with ❤️ for luxury travelers globally</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for logic -->
+    <script>
+        // Splash Screen & Airplane Animation Logic
+        function startTour() {
+            const splash = document.getElementById('splash-screen');
+            const plane = document.getElementById('flying-plane');
+            
+            // Trigger the airplane animation
+            plane.classList.add('plane-fly');
+            
+            // Fade out the splash screen halfway through the airplane flight
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.visibility = 'hidden';
+                }, 1500);
+            }, 800);
+        }
+
+        // Theme Switcher Logic
+        function changeTheme() {
+            const theme = document.getElementById('theme-selector').value;
+            document.body.setAttribute('data-theme', theme);
+        }
+
+        function showHome() { showPage('home-page', 0); }
+        function showChat() { showPage('chat-page', 1); }
+        function showAbout() { showPage('about-page', 2); }
+        function showSignIn() { showPage('signin-page', 3); }
+        function showSignUp() { showPage('signup-page', 4); }
+    
+        function showPage(pageId, navIndex) {
+            const pages = ['home-page', 'chat-page', 'about-page', 'signin-page', 'signup-page'];
+            pages.forEach(id => document.getElementById(id).style.display = (id === pageId) ? 'block' : 'none');
+            updateActiveNav(navIndex);
+        }
+    
+        function updateActiveNav(index) {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach((link, i) => {
+                if (i < 5) link.classList.toggle('active', i === index);
+            });
+        }
+    
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message';
+            userMessage.textContent = message;
+            chatMessages.appendChild(userMessage);
+
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+            chatMessages.appendChild(botMessage);
+
+            try {
+                const response = await fetch("/get-response", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                const formattedReply = data.reply
+                    .replace(/\n/g, '<br>')
+                    .replace(/\* \*\*(.*?)\*\*/g, '<b>$1</b>')
+                    .replace(/\* (.*?)\:/g, '<b>$1:</b>');
+
+                typeWriter(botMessage, formattedReply, 10);
+            } catch (error) {
+                botMessage.textContent = "Something went wrong 💥: " + error.message;
+                console.error("Fetch error:", error);
+            }
+
+            userInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') sendMessage();
+        }
+    
+        function typeWriter(element, text, speed) {
+            let i = 0;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = text;
+            const nodes = Array.from(tempDiv.childNodes);
+    
+            function typeNextNode(index) {
+                if (index >= nodes.length) return;
+                const node = nodes[index];
+    
+                if (node.nodeType === Node.TEXT_NODE) {
+                    let textContent = node.textContent;
+                    let charIndex = 0;
+    
+                    function typeChar() {
+                        if (charIndex < textContent.length) {
+                            element.innerHTML += textContent[charIndex++];
+                            setTimeout(typeChar, speed);
+                        } else {
+                            typeNextNode(index + 1);
+                        }
+                    }
+                    typeChar();
+                } else {
+                    element.appendChild(node.cloneNode(true));
+                    typeNextNode(index + 1);
+                }
+            }
+            typeNextNode(0);
+        }
+    
+        window.onload = function () {
+            showHome();
+        };
+    </script>
+</body>
+</html>
