@@ -20,7 +20,7 @@ def home():
     return render_template("Index.html")
 
 # Use environment variable for API key (set GEMINI_API_KEY in Vercel dashboard)
-api_key = os.environ.get("GEMINI_API_KEY", "AIzaSyAuCfBJrx3gSWfeiWHp73I1wKg9wGF5g_Y")
+api_key = os.environ.get("GEMINI_API_KEY", "AIzaSyAUM31kK1v5SY0VBQBVf8v_b4yTeeTNeK0")
 
 try:
     genai.configure(api_key=api_key)
